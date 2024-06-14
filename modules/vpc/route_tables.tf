@@ -3,6 +3,8 @@ resource "aws_route_table" "public_route_table" {
   tags = {
     Name = "${var.vpc_name}public-route-table"
   }
+
+  depends_on = [aws_vpc.vpc]
 }
 
 resource "aws_route" "public_route" {
@@ -29,6 +31,8 @@ resource "aws_route_table" "private_route_tables" {
   tags = {
     Name = "${var.vpc_name}-private-route-table-${count.index + 1}-${var.availability_zones[count.index]}"
   }
+
+  depends_on = [aws_vpc.vpc]
 }
 
 resource "aws_route" "private_routes" {
@@ -36,10 +40,14 @@ resource "aws_route" "private_routes" {
   route_table_id         = aws_route_table.private_route_tables[count.index].id
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.ngw.id
+
+  depends_on = [aws_route_table.private_route_tables, aws_nat_gateway.ngw]
 }
 
 resource "aws_route_table_association" "private_route_table_associations" {
   count          = length(aws_subnet.private_subnets)
   subnet_id      = aws_subnet.private_subnets[count.index].id
   route_table_id = aws_route_table.private_route_tables[count.index].id
+
+  depends_on = [aws_route_table.private_route_tables, aws_subnet.private_subnets]
 }

@@ -11,4 +11,6 @@ resource "aws_nat_gateway" "ngw" {
     Name = "${var.vpc_name}-ngw"
   }
   allocation_id = aws_eip.ngw_eip.id
+
+  depends_on = [aws_subnet.public_subnets, aws_eip.ngw_eip]
 }

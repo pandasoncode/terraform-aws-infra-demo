@@ -3,4 +3,6 @@ resource "aws_internet_gateway" "igw" {
   tags = {
     Name = "${var.vpc_name}-igw"
   }
+
+  depends_on = [aws_vpc.vpc]
 }
