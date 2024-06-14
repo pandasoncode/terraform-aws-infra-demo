@@ -1,3 +1,10 @@
+variable "aws_region" {
+  description = "AWS region"
+  nullable    = false
+  sensitive   = false
+  type        = string
+}
+
 variable "aws_access_key" {
   description = "AWS access key"
   nullable    = false
