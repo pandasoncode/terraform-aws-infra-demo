@@ -1,0 +1,32 @@
+name: Terraform Apply
+
+on:
+    workflow_dispatch: 
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.4
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        env:
+            TF_VAR_project_name: ${{ vars.TF_VAR_PROJECT_NAME }}
+            TF_VAR_environment: ${{ vars.TF_VAR_ENVIRONMENT }}
+            TF_VAR_vpc_name: ${{ vars.TF_VAR_VPC_NAME }}
+            TF_VAR_vpc_cidr: ${{ vars.TF_VAR_VPC_CIDR }}
+            AWS_ACCESS_KEY_ID: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_KEY }}
+            AWS_REGION: ${{ secrets.TF_VAR_AWS_REGION }}
