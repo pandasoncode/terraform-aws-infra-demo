@@ -19,3 +19,13 @@ module "load_balancer" {
 
   depends_on = [module.vpc]
 }
+
+module "rds" {
+  source             = "./modules/rds"
+  rds_instance_name  = var.project_name
+  vpc_id             = module.vpc.vpc_id
+  subnet_ids         = module.vpc.private_subnets
+  availability_zones = data.aws_availability_zones.available.names
+
+  depends_on = [module.vpc]
+}
