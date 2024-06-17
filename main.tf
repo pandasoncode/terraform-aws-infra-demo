@@ -56,3 +56,9 @@ module "autoscaling" {
 
   depends_on = [module.vpc, module.load_balancer, module.iam]
 }
+
+module "s3" {
+  source = "./modules/s3"
+
+  bucket_name = "${var.project_name}-${var.environment}"
+}
