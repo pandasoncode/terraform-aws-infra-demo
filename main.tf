@@ -29,3 +29,30 @@ module "rds" {
 
   depends_on = [module.vpc]
 }
+
+module "iam" {
+  source = "./modules/iam"
+}
+
+module "autoscaling" {
+  source = "./modules/autoscaling"
+
+  autoscaling_group_name = var.project_name
+
+  ami_id                       = "ami-0c783745b89870b71"
+  instance_type                = "t2.micro"
+  volume_size                  = 150
+  iam_instance_profile_name    = module.iam.ec2_ssm_instance_profile_name
+  autoscaling_max_size         = 1
+  autoscaling_min_size         = 1
+  autoscaling_desired_capacity = 1
+
+  load_balancer                   = module.load_balancer.load_balancer
+  target_group                    = module.load_balancer.target_group
+  load_balancer_security_group_id = module.load_balancer.load_balancer_security_group_id
+
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
+
+  depends_on = [module.vpc, module.load_balancer, module.iam]
+}
