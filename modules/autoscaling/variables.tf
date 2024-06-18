@@ -88,3 +88,10 @@ variable "load_balancer_security_group_id" {
   sensitive   = false
   type        = string
 }
+
+variable "project_name" {
+  description = "Name of the project"
+  nullable    = false
+  sensitive   = false
+  type        = string
+}

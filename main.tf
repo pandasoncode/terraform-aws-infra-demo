@@ -54,6 +54,8 @@ module "autoscaling" {
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
+  project_name = var.project_name
+
   depends_on = [module.vpc, module.load_balancer, module.iam]
 }
 

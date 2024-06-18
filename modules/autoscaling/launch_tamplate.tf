@@ -4,7 +4,7 @@ resource "aws_launch_template" "launch_template" {
   name                   = "${var.autoscaling_group_name}-launch-template"
   image_id               = var.ami_id
   instance_type          = var.instance_type
-  key_name               = "${var.autoscaling_group_name}-kp"
+  key_name               = "${var.project_name}-kp"
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
 
   tag_specifications {
