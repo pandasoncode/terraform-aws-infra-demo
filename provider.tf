@@ -1,7 +1,6 @@
 terraform {
   backend "s3" {
-    bucket  = "terraform-delme-asap"
-    key = "terraform.tfstate"
+    key     = "terraform.tfstate"
     encrypt = true
   }
 }
