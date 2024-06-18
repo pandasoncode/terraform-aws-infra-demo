@@ -39,7 +39,7 @@ module "autoscaling" {
 
   autoscaling_group_name = var.project_name
 
-  ami_id                       = "ami-0c783745b89870b71"
+  ami_id                       = "ami-041764f30a2c940a4"
   instance_type                = "t2.micro"
   volume_size                  = 150
   iam_instance_profile_name    = module.iam.ec2_ssm_instance_profile_name
