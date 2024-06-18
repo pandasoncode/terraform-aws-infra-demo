@@ -20,13 +20,11 @@ jobs:
 
     - name: Create S3 Bucket
       run: |
-        BUCKET_NAME=${{ vars.TF_VAR_PROJECT_NAME }}-terraform-backend
         aws s3api create-bucket --bucket $BUCKET_NAME --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2
         sleep 2
 
     - name: Enable Versioning on S3 Bucket
       run: |
-          BUCKET_NAME=${{ vars.TF_VAR_PROJECT_NAME }}-terraform-backend
           aws s3api put-bucket-versioning --bucket $BUCKET_NAME --versioning-configuration Status=Enabled
           sleep 2
   
@@ -38,5 +36,4 @@ jobs:
 
     - name: Upload PEM to S3
       run: |
-        BUCKET_NAME=$KEY_PAIR_NAME-terraform-backend
         aws s3 cp $KEY_PAIR_NAME.pem s3://$BUCKET_NAME/pem/$KEY_PAIR_NAME.pem
