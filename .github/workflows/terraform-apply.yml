@@ -22,7 +22,7 @@ jobs:
           terraform_version: 1.8.4
 
       - name: Terraform Init
-        run: terraform init --reconfigure --backend-config="bucket=${{ vars.TF_VAR_PROJECT_NAME }}-terraform-backend"
+        run: terraform init --reconfigure --backend-config="bucket=${{ vars.TF_VAR_PROJECT_NAME }}-terraform-backend-${{ secrets.AWS_REGION }}"
 
       - name: Terraform Apply
         id: apply

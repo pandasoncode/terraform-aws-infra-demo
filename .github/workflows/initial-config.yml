@@ -7,7 +7,7 @@ jobs:
   create-resources:
     runs-on: ubuntu-latest
     env:
-        BUCKET_NAME: ${{ vars.TF_VAR_PROJECT_NAME }}-terraform-backend
+        BUCKET_NAME: ${{ vars.TF_VAR_PROJECT_NAME }}-terraform-backend-${{ secrets.AWS_REGION }}
         KEY_PAIR_NAME: ${{ vars.TF_VAR_PROJECT_NAME }}-kp
 
     steps:
