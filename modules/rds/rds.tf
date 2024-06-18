@@ -24,11 +24,13 @@ resource "aws_rds_cluster" "rds_cluster" {
   apply_immediately      = true
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
 
-  backup_retention_period         = 7
-  copy_tags_to_snapshot           = true
-  delete_automated_backups        = false
-  deletion_protection             = true
-  preferred_backup_window         = "07:00-07:30"
+  backup_retention_period  = 7
+  copy_tags_to_snapshot    = true
+  delete_automated_backups = false
+  deletion_protection      = true
+  preferred_backup_window  = "07:00-07:30"
+
+  final_snapshot_identifier = "${var.rds_instance_name}-rds-cluster-final-snapshot"
 
   depends_on = [aws_db_subnet_group.rds_subnet_group, aws_rds_cluster_parameter_group.rds_parameter_group]
 }
