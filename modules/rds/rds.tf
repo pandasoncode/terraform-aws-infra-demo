@@ -28,7 +28,7 @@ resource "aws_rds_cluster" "rds_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "rds_cluster_instances" {
-  count              = length(slice(var.availability_zones, 0, 3))
+  count              = length(slice(var.availability_zones, 0, 2))
   identifier         = "${var.rds_instance_name}-rds-cluster-instance-${count.index + 1}"
   cluster_identifier = aws_rds_cluster.rds_cluster.cluster_identifier
   instance_class     = "db.serverless"
