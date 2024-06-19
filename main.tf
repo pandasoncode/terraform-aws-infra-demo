@@ -41,11 +41,11 @@ module "autoscaling" {
 
   ami_id                       = "ami-041764f30a2c940a4"
   instance_type                = "t2.micro"
-  volume_size                  = 150
+  volume_size                  = 15
   iam_instance_profile_name    = module.iam.ec2_ssm_instance_profile_name
-  autoscaling_max_size         = 1
-  autoscaling_min_size         = 1
-  autoscaling_desired_capacity = 1
+  autoscaling_max_size         = 0
+  autoscaling_min_size         = 0
+  autoscaling_desired_capacity = 0
 
   load_balancer                   = module.load_balancer.load_balancer
   target_group                    = module.load_balancer.target_group
